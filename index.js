@@ -3,18 +3,11 @@ const addNumber = document.querySelector("#number");
 const numberBank = document.getElementById("numberBank");
 const oddNums = document.querySelector('#odds output');
 const evenNums = document.querySelector('#evens output');
-const sortOneButton = document.querySelector('#sortOneButton');
-const sortAllButton = document.querySelector('#sortAllButton');
+const sortOneButton = document.querySelector('#sortOne');
+const sortAllButton = document.querySelector('#sortAll');
 
 let numArr = [];
-// const printNums = () => {
-//   const output = document.querySelector('output');
-//   output.innerText = numArr;
-//   numberBank.innerText = numArr;
-  oddNums.innerText = numArr.filter(num => num%2 !==0);
-  evenNums.innerText = numArr.filter(num => num%2 ===0);
 
-// }
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -22,6 +15,7 @@ form.addEventListener("submit", function (event) {
   if (!isNaN(number)) {
     numArr.push(number);
     numberBank.innerText = numArr;
+    addNumber.value='';
   }
 });
 oddNums.addEventListener("click", function () {
@@ -32,9 +26,23 @@ evenNums.addEventListener("click", function () {
 });
 
 sortOneButton.addEventListener('click', function () {
-
+  if(numArr.length>0){
+    const number=numArr.shift();
+    sortNumber(number);
+  }
 });
 
 sortAllButton.addEventListener('click', function() {
-
+  numArr.forEach((number) => {
+    sortNumber(number);
+  })
+  numArr=[];
 });
+
+function sortNumber(number) {
+  if(number%2===0){
+    evenNums.textContent+=number+', '
+  } else {
+    oddNums.textContent+=number+', ';
+  }
+}
